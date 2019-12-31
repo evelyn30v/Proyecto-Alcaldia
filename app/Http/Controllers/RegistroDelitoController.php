@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware;
 use Illuminate\Validation\Validator;
+use Carbon\Carbon;
 
 class RegistroDelitoController extends Controller
 {
@@ -19,6 +20,45 @@ class RegistroDelitoController extends Controller
     {
         $tipoUser = Registro_delito::get();
         return $tipoUser;
+    }
+    public function reportes(Request $request)
+    {
+        // print_r($request->all());
+        $get_anio_i = $request->anio_i;
+        $get_anio_f = $request->anio_f;
+        $get_delito = $request->delitos_report;
+
+        if ($get_delito != 0)  {
+            $tipoUser = Registro_delito::whereBetween('anio',[$get_anio_i, $get_anio_f])
+                ->where('tipo_delito', [$get_delito])->orderBy('anio', 'ASC')->get();
+            return $tipoUser;
+        }
+        elseif ($get_delito == 0) {
+            $tipoUser = Registro_delito::whereBetween('anio',[$get_anio_i, $get_anio_f])->get();
+            return $tipoUser;
+        }
+        
+    }
+    public function mes_reportes (Request $request)
+    {
+        // print_r($request->all());
+        $get_mes_i = $request->mes_i;
+        $get_mes_f = $request->mes_f;
+        $get_anio_mes = $request->an_me;
+        $get_delito = $request->delitos_report;
+
+        if ($get_delito != 0)  {
+            $mes_get_reporte = Registro_delito::whereBetween('mes',[$get_mes_i, $get_mes_f])
+                ->where('tipo_delito', [$get_delito])->orderBy('mes', 'ASC')
+                ->where('anio',[$get_anio_mes])->get();
+            return $mes_get_reporte;
+        }
+        elseif ($get_delito == 0) {
+            $mes_get_reporte = Registro_delito::whereBetween('mes',[$get_mes_i, $get_mes_f])
+            ->where('anio',[$get_anio_mes])->get();
+            return $mes_get_reporte;
+        }
+        
     }
 
     /**

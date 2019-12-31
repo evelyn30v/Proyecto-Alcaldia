@@ -50,34 +50,50 @@
           <div class="vl"></div>
 
           <div class="derecha">
-            <div class="contenedorGeneral">
-              <label for>Fecha de citación :</label>
-              <input type="date" class="redondear" placeholder="dd/mm/aa" name="fecha_cita" required/>
-            </div>
-            <div class="contenedorGeneral">
-              <label for>hora de citación :</label>
-              <input
-                type="time"
-                id="hora-cita"
-                name="hora_cita"
-                class="redondear"
-                min="08:00"
-                max="12:00"
-                required/>
-            </div>
-            <div class="contenedorGeneral">
-              <label for>Duración :</label>
-              <div class="formulario">
-                <input type="number" id="duracion" name="duracion_cita" class="redondear" min="1" required/>
-                <p></p>
-                <select name="tiempo_cita" class="redondear" required>
-                  <option value selected>Seleccione</option>
-                  <option value="1">Minutos</option>
-                  <option value="2">Horas</option>
-                </select>
+              <div class="contenedorGeneral">
+                <label for>Fecha de citación :</label>
+                <input
+                  type="date"
+                  class="redondear"
+                  placeholder="dd/mm/aa"
+                  v-model="newFechaCita"
+                  name="fecha_cita"
+                  required
+                />
+              </div>
+              <div class="contenedorGeneral">
+                <label for>hora de citación :</label>
+                <input
+                  type="time"
+                  v-model="newHoracita"
+                  id="hora-cita"
+                  name="hora_cita"
+                  class="redondear"
+                  min="08:00"
+                  max="18:00"
+                  required
+                />
+              </div>
+              <div class="contenedorGeneral">
+                <label for>Duración :</label>
+                <div class="formulario">
+                  <input
+                    type="number"
+                    id="duracion"
+                    v-model="newDuracion"
+                    name="duracion_cita"
+                    class="redondear"
+                    required
+                  />
+                  <p></p>
+                  <select name="tiempo_cita" class="redondear" v-model="NewTiempoDuracion" required>
+                    <option value selected>Seleccione</option>
+                    <option value="Minutos">Minutos</option>
+                    <option value="Horas">Horas</option>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
         </div>
 
     </div>
@@ -92,6 +108,10 @@
       convocantesArray:[],
       convocadosArray:[],
       newLugar_name_input:'',
+      newFechaCita:"",
+      newHoracita:"",
+      NewTiempoDuracion:"",
+      newDuracion:"",
       delito: "",
       newLugar:"",
       estado_cte: false,

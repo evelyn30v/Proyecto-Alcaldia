@@ -20,7 +20,7 @@ class RegistroDelito extends Migration
             $table->unsignedBigInteger('tipo_delito');
             // $table->string('tipo_delito');
             $table->string('mes');
-            $table->string('anio');
+            $table->bigInteger('anio');
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users');

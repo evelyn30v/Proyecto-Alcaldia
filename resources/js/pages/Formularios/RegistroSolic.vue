@@ -117,13 +117,13 @@
               </div>
             </div>
           </div>
-          <div class="contenedorGeneral">
+          <!-- <div class="contenedorGeneral">
             <div class="labelSpan">
               <label for="label_delito">Fecha :</label>
               <span v-if="!newFecha" class="requerido">Requerido*</span>
             </div>
             <input type="date" class="redondear" v-model="newFecha" name="fecha" required />
-          </div>
+          </div> -->
           <div class="contenedorGeneral">
             <div class="labelSpan">
               <label for="label_delito">Motivo :</label>
@@ -164,7 +164,7 @@
             style="color:#ffff"
           ></span>
           <!-- <span class="sr-only">Loading...</span> -->
-          Guargar
+          Guardar
         </button>
       </div>
     </form>
@@ -189,7 +189,7 @@ export default {
       newTipoDoc: "",
       newDocumento: "",
       newEstado: "",
-      newFecha: "",
+      // newFecha: "",
       newMotivo: "",
       newUserId: "",
       newObservacion: "",
@@ -257,7 +257,7 @@ export default {
           tipo_doc: this.newTipoDoc,
           documento: this.newDocumento,
           estado: this.newEstado,
-          fecha: this.newFecha,
+          // fecha: this.newFecha,
           motivo: this.newMotivo,
           observacion: this.newObservacion,
           id_solicitante_input: this.newId_solicitante_input
@@ -273,6 +273,7 @@ export default {
         })
         .catch(err => {
           console.log("Error vue: ", err);
+          this.spinner = false;
           this.msgFalse = true;
         });
     },

@@ -14,7 +14,8 @@ class ConvocanteController extends Controller
      */
     public function index()
     {
-        
+        $cte = Convocante::get();
+        return $cte;
     }
 
     /**
@@ -48,7 +49,7 @@ class ConvocanteController extends Controller
      */
     public function show(Convocante $convocante)
     {
-        //
+     
     }
 
     /**

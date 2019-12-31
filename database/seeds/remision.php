@@ -14,6 +14,9 @@ class remision extends Seeder
     public function run()
     {
         DB::table('remisions')->insert([
+            'nombre' => 'No remitido',
+        ]);
+        DB::table('remisions')->insert([
             'nombre' => 'ICBF',
         ]);
         DB::table('remisions')->insert([

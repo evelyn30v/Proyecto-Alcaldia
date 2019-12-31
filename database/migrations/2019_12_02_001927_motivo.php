@@ -17,7 +17,6 @@ class Motivo extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_ciudad');
             $table->unsignedBigInteger('id_tipo_motivo');
-            $table->enum('delito',['si','no']);
             $table->unsignedBigInteger('id_tipo_delito');
             $table->timestamps();
 

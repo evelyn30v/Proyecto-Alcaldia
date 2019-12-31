@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Convocados;
+use App\Convocado;
 use Illuminate\Http\Request;
 
 class ConvocadosController extends Controller
@@ -14,7 +14,8 @@ class ConvocadosController extends Controller
      */
     public function index()
     {
-       
+        $cdo = Convocado::get();
+        return $cdo;
     }
 
     /**

@@ -15,11 +15,10 @@
                     <h6>Estado: {{u.estado}}</h6>
                     <h6>Motivo: </h6>
                     <h8>{{u.motivo}}</h8>
-
+                    <p></p>
                     <h6>Observación: </h6>
-                    <h8>{{u.obervación}} </h8>
-
-                    <h6>Email: {{u.email}}</h6>
+                    <h8>{{u.observacion}} </h8>
+                    <p></p>
                     <h6 v-if="u.created_at">Fecha de creación: {{u.created_at}}</h6>
                     <div v-for="us in userArray" :key="us.id" v-if="u.id_user===us.id">
                         <h6 style="color:green">Creada por: {{us.name}} {{us.apellido}}</h6>

@@ -17,7 +17,7 @@ class RegistroCaso extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_motivo');
-            $table->unsignedBigInteger('id_remision');
+            $table->unsignedBigInteger('id_remision')->nullable();
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users');

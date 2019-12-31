@@ -2,7 +2,7 @@
   <div class=" modalPeq">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
-    <h1 style="margin-bottom:40px; text-align: center;">Registro de solicitud</h1>
+
 <!-- ***************************************************mensajes******************************************************************************** -->
     <span v-if="msgFalse">
       <div class="danger" name="danger">
@@ -25,8 +25,9 @@
     </span>
 <!-- ***************************************************mensajes******************************************************************************** -->
 
-    <div class="contenedor dialogModal" style="width:80%">
-    <form method="POST" @submit.prevent="addSolicitante()">
+    <div class="contenedor dialogModal" style="width:80%" >
+    <form method="POST">
+          <h1 style="margin-bottom:40px; text-align: center;">Modificar solicitud</h1>
       <div class="formulario">
         <input type="hidden" name="_token" :value="csrf" />
         <div class="izquierda">
@@ -86,7 +87,7 @@
               required
             />
           </div>
-          <input type="text" name="input_id_sol" v-model="id_solicitud_hidden"/>
+          <input type="hidden" name="input_id_sol" v-model="id_solicitud_hidden"/>
 
           <div class="contenedorGeneral">
             <div class="labelSpan">
@@ -121,13 +122,13 @@
               </div>
             </div>
           </div>
-          <div class="contenedorGeneral">
+          <!-- <div class="contenedorGeneral">
             <div class="labelSpan">
               <label for="label_delito">Fecha :</label>
-              <!-- <span v-if="!newFecha" class="requerido">Requerido*</span> -->
+              <span v-if="!newFecha" class="requerido">Requerido*</span>
             </div>
             <input type="date" class="redondear"  v-model="newFecha" name="fecha" required />
-          </div>
+          </div> -->
           <div class="contenedorGeneral">
             <div class="labelSpan">
               <label for="label_delito">Motivo :</label>
@@ -158,18 +159,18 @@
         ></textarea>
       </div>
       <div class="formulario">
-        <router-link to="/RegistroC" class="buttonA" style="text-align: center;">Atrás</router-link>
+        <p></p>
         <div></div>
-        <button class="buttonN" style="text-align: center;">
+        <button class="buttonN" style="text-align: center;" v-on:click.prevent="updateSolicitud(solicitud)">
           <span
             class="spinner-border spinner-border-sm"
             role="status"
             aria-hidden="true"
             v-if="spinner"
             style="color:#ffff"
-          ></span>
+            ></span>
           <!-- <span class="sr-only">Loading...</span> -->
-          Guargar
+          Guardar
         </button>
       </div>
     </form>
@@ -210,9 +211,17 @@ export default {
   },
   methods:{
     solicitanteview: function() {
-      var url = "solicitante/" ;
+      var url = "solicitante/" + this.idsolicitanteT;
       axios.get(url).then(Response => {
         this.solicitantes = Response.data;
+        this.newNombre = this.solicitantes.nombre;
+        this.newApellido = this.solicitantes.apellido;
+        this.newTipoDoc = this.solicitantes.tipo_documento;
+        this.newDocumento = this.solicitantes.no_documento;
+        this.newMotivo = this.solicitud.motivo;
+        this.newEstado = this.solicitud.estado;
+        this.newObservacion = this.solicitud.observacion;
+        this.newFecha = this.solicitud.fecha;
        
         
         //console.log(Response.data);
@@ -220,26 +229,85 @@ export default {
         //console.log(this.solicitantes)
       });
     },
-    // solicitudesView: function() {
-    //   var urlsolic = "solicitudRgistro/" + this.idsolic;
-    //   axios.get(urlsolic).then(Response => {
-    //     this.solicitud = Response.data;        
-    //     this.datosArray = Response.data;
-    //   });
-    // },
+    solicitudesView: function() {
+      var urlsolic = "solicitudRgistro/" + this.idsolic;
+      axios.get(urlsolic).then(Response => {
+        this.solicitud = Response.data;        
+      });
+    },
+
+    updateSolicitud: function(idGet){
+      // console.log(idGet.id);
+      
+      this.spinner = true;
+      var url = "api/solicitudRgistro/" + idGet.id;
+      axios.put(url,{
+          nombre: this.newNombre,
+          apellido: this.newApellido,
+          tipo_doc: this.newTipoDoc,
+          documento: this.newDocumento,
+          estado: this.newEstado,
+          fecha: this.newFecha,
+          motivo: this.newMotivo,
+          observacion: this.newObservacion,
+          id_solicitante_input: this.newId_solicitante_input,
+          id_solicitante: this.id_solicitud_hidden,
+        })
+        .then(result => {
+          console.log("respuesta vue: ", result);
+          this.msgTrue = true;
+          this.newObs = "";
+          this.newMes = "";
+          this.newDelito = "";
+          this.newAnio = "";
+          this.spinner = false;
+        })
+        .catch(err => {
+          console.log("Error vue: ", err);
+          this.msgFalse = true;
+          this.spinner = false;
+        });
+    },
+    llenar: function() {
+      for (var i in this.documentoArray) {
+        if (this.documentoArray[i].no_documento == this.newDocumento) {
+          this.newNombre = this.documentoArray[i].nombre;
+          this.newApellido = this.documentoArray[i].apellido;
+          this.newId_solicitante_input = this.documentoArray[i].id;
+          // console.log(this.newNombre);
+          //console.log(this.newId_solicitante_input);
+          return this.newId_solicitante_input;
+        } else if (
+          this.newDocumento == null ||
+          this.newDocumento.length == 0 ||
+          /^\s+$/.test(this.newDocumento)
+        ) {
+          this.newId_solicitante_input = null;
+          this.newNombre = null;
+          this.newApellido = null;
+          // console.log("null")
+        } else if (this.newDocumento !== this.documentoArray[i].no_documento) {
+          this.newId_solicitante_input = null;
+          this.newNombre = "";
+          this.newApellido = "";
+          // console.log("hola")
+        }
+        // console.log("hola")
+      }
+    },
+    estadoFalse: function(){
+            this.msgTrue=false;
+            this.msgFalse=false;
+        }
   },
 
+
   created: function(){
-    //console.log(this.idsolic);
-    console.log(this.idsolic);
-    //this.newMotivo = "555555555";
-    //this.solicitudesView();
-    //this.solicitanteview();
-    this.id_solicitud_hidden = this.idsolic;
-    console.log(this.datosArray);
-    
-    // this.solicitudesView();
-    // this.solicitanteview();
+    this.solicitudesView();
+    this.solicitanteview();
+    // console.log(this.idsolicitanteT);
+    // console.log(this.idsolic); 
+    this.id_solicitud_hidden = this.idsolicitanteT;
   },
   
   props:[

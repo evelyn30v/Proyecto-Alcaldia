@@ -27,9 +27,25 @@ class RegistroCasoController extends Controller
      */
     public function index()
     {
-        //
+        $casos = Registro_caso::get();
+        return $casos;
     }
-
+    public function involucrado()
+    {
+        $casos = Involucrado::get();
+        return $casos;
+    }
+    public function remision()
+    {
+        $casos = Remision::get();
+        return $casos;
+    }
+    public function motivo()
+    {
+        $casos = Motivo::get();
+        return $casos;
+    }
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -57,8 +73,7 @@ class RegistroCasoController extends Controller
         $contacto = new Contacto();
         $registro_caso = new Registro_caso();
         $Caso_involucrado = new Caso_involucrado();
-        $convocando_cita = new Convocado();
-        $convocante_cita = new Convocante();
+        
 
         //print_r(count($request["involucrado.rol"]));
 
@@ -121,6 +136,8 @@ class RegistroCasoController extends Controller
                 $citacion->fecha = $request->fecha_cita;
                 $citacion->hora_inicio = $request->hora_cita;
                 $citacion->id_lugar = $Lugar->id;
+                $citacion->duracion = $request->duracion_cita;
+                $citacion->tiempo = $request->tiempo_cita;
                 $citacion->id_registro_caso = $registro_caso->id;
                 $citacion->save();
 
@@ -131,17 +148,23 @@ class RegistroCasoController extends Controller
                 $citacion->fecha = $request->fecha_cita;
                 $citacion->hora_inicio = $request->hora_cita;
                 $citacion->id_lugar = $request->lugar_cita;
+                $citacion->duracion = $request->duracion_cita;
+                $citacion->tiempo = $request->tiempo_cita;
                 $citacion->id_registro_caso = $registro_caso->id;
                 $citacion->save();
             }
 
             for ($i=0; $i < count($request["convocante.nombre"]); $i++) { 
+                $convocante_cita = new Convocante();
+
                 $convocante_cita->nombre = isset($request["convocante.nombre." . $i])?$request["convocante.nombre." . $i]:'';
                 $convocante_cita->id_citacion = $citacion->id;
                 $convocante_cita->save();
             }
 
             for ($i=0; $i < count($request["convocado.nombre"]); $i++) { 
+                $convocando_cita = new Convocado();
+
                 $convocando_cita->nombre = isset($request["convocado.nombre." . $i])?$request["convocado.nombre." . $i]:'';
                 $convocando_cita->id_citacion = $citacion->id;
                 $convocando_cita->save();
@@ -210,6 +233,8 @@ class RegistroCasoController extends Controller
                     $citacion->fecha = $request->fecha_cita;
                     $citacion->hora_inicio = $request->hora_cita;
                     $citacion->id_lugar = $Lugar->id;
+                    $citacion->duracion = $request->duracion_cita;
+                    $citacion->tiempo = $request->tiempo_cita;
                     $citacion->id_registro_caso = $registro_caso->id;
                     $citacion->save();
     
@@ -220,22 +245,26 @@ class RegistroCasoController extends Controller
                     $citacion->fecha = $request->fecha_cita;
                     $citacion->hora_inicio = $request->hora_cita;
                     $citacion->id_lugar = $request->lugar_cita;
+                    $citacion->duracion = $request->duracion_cita;
+                    $citacion->tiempo = $request->tiempo_cita;
                     $citacion->id_registro_caso = $registro_caso->id;
                     $citacion->save();
                 }
-    
                 for ($i=0; $i < count($request["convocante.nombre"]); $i++) { 
+                    $convocante_cita = new Convocante();
+    
                     $convocante_cita->nombre = isset($request["convocante.nombre." . $i])?$request["convocante.nombre." . $i]:'';
                     $convocante_cita->id_citacion = $citacion->id;
                     $convocante_cita->save();
                 }
     
                 for ($i=0; $i < count($request["convocado.nombre"]); $i++) { 
+                    $convocando_cita = new Convocado();
+    
                     $convocando_cita->nombre = isset($request["convocado.nombre." . $i])?$request["convocado.nombre." . $i]:'';
                     $convocando_cita->id_citacion = $citacion->id;
                     $convocando_cita->save();
                 }
-
         }
         
         //si los estremos vienen llenos*******************************************************************************************************
@@ -297,6 +326,8 @@ class RegistroCasoController extends Controller
                     $citacion->fecha = $request->fecha_cita;
                     $citacion->hora_inicio = $request->hora_cita;
                     $citacion->id_lugar = $Lugar->id;
+                    $citacion->duracion = $request->duracion_cita;
+                    $citacion->tiempo = $request->tiempo_cita;
                     $citacion->id_registro_caso = $registro_caso->id;
                     $citacion->save();
     
@@ -307,17 +338,23 @@ class RegistroCasoController extends Controller
                     $citacion->fecha = $request->fecha_cita;
                     $citacion->hora_inicio = $request->hora_cita;
                     $citacion->id_lugar = $request->lugar_cita;
+                    $citacion->duracion = $request->duracion_cita;
+                    $citacion->tiempo = $request->tiempo_cita;
                     $citacion->id_registro_caso = $registro_caso->id;
                     $citacion->save();
                 }
     
                 for ($i=0; $i < count($request["convocante.nombre"]); $i++) { 
+                    $convocante_cita = new Convocante();
+    
                     $convocante_cita->nombre = isset($request["convocante.nombre." . $i])?$request["convocante.nombre." . $i]:'';
                     $convocante_cita->id_citacion = $citacion->id;
                     $convocante_cita->save();
                 }
     
                 for ($i=0; $i < count($request["convocado.nombre"]); $i++) { 
+                    $convocando_cita = new Convocado();
+    
                     $convocando_cita->nombre = isset($request["convocado.nombre." . $i])?$request["convocado.nombre." . $i]:'';
                     $convocando_cita->id_citacion = $citacion->id;
                     $convocando_cita->save();
@@ -383,6 +420,8 @@ class RegistroCasoController extends Controller
                     $citacion->fecha = $request->fecha_cita;
                     $citacion->hora_inicio = $request->hora_cita;
                     $citacion->id_lugar = $Lugar->id;
+                    $citacion->duracion = $request->duracion_cita;
+                    $citacion->tiempo = $request->tiempo_cita;
                     $citacion->id_registro_caso = $registro_caso->id;
                     $citacion->save();
     
@@ -393,17 +432,22 @@ class RegistroCasoController extends Controller
                     $citacion->fecha = $request->fecha_cita;
                     $citacion->hora_inicio = $request->hora_cita;
                     $citacion->id_lugar = $request->lugar_cita;
+                    $citacion->duracion = $request->duracion_cita;
+                    $citacion->tiempo = $request->tiempo_cita;
                     $citacion->id_registro_caso = $registro_caso->id;
                     $citacion->save();
                 }
-    
                 for ($i=0; $i < count($request["convocante.nombre"]); $i++) { 
+                    $convocante_cita = new Convocante();
+    
                     $convocante_cita->nombre = isset($request["convocante.nombre." . $i])?$request["convocante.nombre." . $i]:'';
                     $convocante_cita->id_citacion = $citacion->id;
                     $convocante_cita->save();
                 }
     
                 for ($i=0; $i < count($request["convocado.nombre"]); $i++) { 
+                    $convocando_cita = new Convocado();
+    
                     $convocando_cita->nombre = isset($request["convocado.nombre." . $i])?$request["convocado.nombre." . $i]:'';
                     $convocando_cita->id_citacion = $citacion->id;
                     $convocando_cita->save();
@@ -469,6 +513,8 @@ class RegistroCasoController extends Controller
                     $citacion->fecha = $request->fecha_cita;
                     $citacion->hora_inicio = $request->hora_cita;
                     $citacion->id_lugar = $Lugar->id;
+                    $citacion->duracion = $request->duracion_cita;
+                    $citacion->tiempo = $request->tiempo_cita;
                     $citacion->id_registro_caso = $registro_caso->id;
                     $citacion->save();
     
@@ -479,17 +525,23 @@ class RegistroCasoController extends Controller
                     $citacion->fecha = $request->fecha_cita;
                     $citacion->hora_inicio = $request->hora_cita;
                     $citacion->id_lugar = $request->lugar_cita;
+                    $citacion->duracion = $request->duracion_cita;
+                    $citacion->tiempo = $request->tiempo_cita;
                     $citacion->id_registro_caso = $registro_caso->id;
                     $citacion->save();
                 }
     
                 for ($i=0; $i < count($request["convocante.nombre"]); $i++) { 
+                    $convocante_cita = new Convocante();
+    
                     $convocante_cita->nombre = isset($request["convocante.nombre." . $i])?$request["convocante.nombre." . $i]:'';
                     $convocante_cita->id_citacion = $citacion->id;
                     $convocante_cita->save();
                 }
     
                 for ($i=0; $i < count($request["convocado.nombre"]); $i++) { 
+                    $convocando_cita = new Convocado();
+    
                     $convocando_cita->nombre = isset($request["convocado.nombre." . $i])?$request["convocado.nombre." . $i]:'';
                     $convocando_cita->id_citacion = $citacion->id;
                     $convocando_cita->save();
@@ -555,6 +607,8 @@ class RegistroCasoController extends Controller
                 $citacion->fecha = $request->fecha_cita;
                 $citacion->hora_inicio = $request->hora_cita;
                 $citacion->id_lugar = $Lugar->id;
+                $citacion->duracion = $request->duracion_cita;
+                $citacion->tiempo = $request->tiempo_cita;
                 $citacion->id_registro_caso = $registro_caso->id;
                 $citacion->save();
 
@@ -565,17 +619,23 @@ class RegistroCasoController extends Controller
                 $citacion->fecha = $request->fecha_cita;
                 $citacion->hora_inicio = $request->hora_cita;
                 $citacion->id_lugar = $request->lugar_cita;
+                $citacion->duracion = $request->duracion_cita;
+                $citacion->tiempo = $request->tiempo_cita;
                 $citacion->id_registro_caso = $registro_caso->id;
                 $citacion->save();
             }
 
             for ($i=0; $i < count($request["convocante.nombre"]); $i++) { 
+                $convocante_cita = new Convocante();
+
                 $convocante_cita->nombre = isset($request["convocante.nombre." . $i])?$request["convocante.nombre." . $i]:'';
                 $convocante_cita->id_citacion = $citacion->id;
                 $convocante_cita->save();
             }
 
             for ($i=0; $i < count($request["convocado.nombre"]); $i++) { 
+                $convocando_cita = new Convocado();
+
                 $convocando_cita->nombre = isset($request["convocado.nombre." . $i])?$request["convocado.nombre." . $i]:'';
                 $convocando_cita->id_citacion = $citacion->id;
                 $convocando_cita->save();
@@ -641,6 +701,8 @@ class RegistroCasoController extends Controller
                 $citacion->fecha = $request->fecha_cita;
                 $citacion->hora_inicio = $request->hora_cita;
                 $citacion->id_lugar = $Lugar->id;
+                $citacion->duracion = $request->duracion_cita;
+                $citacion->tiempo = $request->tiempo_cita;
                 $citacion->id_registro_caso = $registro_caso->id;
                 $citacion->save();
 
@@ -651,17 +713,23 @@ class RegistroCasoController extends Controller
                 $citacion->fecha = $request->fecha_cita;
                 $citacion->hora_inicio = $request->hora_cita;
                 $citacion->id_lugar = $request->lugar_cita;
+                $citacion->duracion = $request->duracion_cita;
+                $citacion->tiempo = $request->tiempo_cita;
                 $citacion->id_registro_caso = $registro_caso->id;
                 $citacion->save();
             }
 
             for ($i=0; $i < count($request["convocante.nombre"]); $i++) { 
+                $convocante_cita = new Convocante();
+
                 $convocante_cita->nombre = isset($request["convocante.nombre." . $i])?$request["convocante.nombre." . $i]:'';
                 $convocante_cita->id_citacion = $citacion->id;
                 $convocante_cita->save();
             }
 
             for ($i=0; $i < count($request["convocado.nombre"]); $i++) { 
+                $convocando_cita = new Convocado();
+
                 $convocando_cita->nombre = isset($request["convocado.nombre." . $i])?$request["convocado.nombre." . $i]:'';
                 $convocando_cita->id_citacion = $citacion->id;
                 $convocando_cita->save();
@@ -727,6 +795,8 @@ class RegistroCasoController extends Controller
                 $citacion->fecha = $request->fecha_cita;
                 $citacion->hora_inicio = $request->hora_cita;
                 $citacion->id_lugar = $Lugar->id;
+                $citacion->duracion = $request->duracion_cita;
+                $citacion->tiempo = $request->tiempo_cita;
                 $citacion->id_registro_caso = $registro_caso->id;
                 $citacion->save();
 
@@ -737,17 +807,23 @@ class RegistroCasoController extends Controller
                 $citacion->fecha = $request->fecha_cita;
                 $citacion->hora_inicio = $request->hora_cita;
                 $citacion->id_lugar = $request->lugar_cita;
+                $citacion->duracion = $request->duracion_cita;
+                $citacion->tiempo = $request->tiempo_cita;
                 $citacion->id_registro_caso = $registro_caso->id;
                 $citacion->save();
             }
 
             for ($i=0; $i < count($request["convocante.nombre"]); $i++) { 
+                $convocante_cita = new Convocante();
+
                 $convocante_cita->nombre = isset($request["convocante.nombre." . $i])?$request["convocante.nombre." . $i]:'';
                 $convocante_cita->id_citacion = $citacion->id;
                 $convocante_cita->save();
             }
 
             for ($i=0; $i < count($request["convocado.nombre"]); $i++) { 
+                $convocando_cita = new Convocado();
+
                 $convocando_cita->nombre = isset($request["convocado.nombre." . $i])?$request["convocado.nombre." . $i]:'';
                 $convocando_cita->id_citacion = $citacion->id;
                 $convocando_cita->save();

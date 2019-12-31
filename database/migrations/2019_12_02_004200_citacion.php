@@ -17,8 +17,10 @@ class Citacion extends Migration
             $table->bigIncrements('id');
             $table->text('observacion')->nullable();
             $table->date('fecha');
-            $table->time('hora_inicio');
             $table->unsignedBigInteger('id_lugar');
+            $table->time('hora_inicio');
+            $table->integer('duracion');
+            $table->string('tiempo');
             $table->unsignedBigInteger('id_registro_caso');
             $table->timestamps();
 

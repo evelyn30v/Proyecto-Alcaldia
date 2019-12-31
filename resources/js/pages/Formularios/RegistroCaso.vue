@@ -11,7 +11,7 @@
 
       <div class="contenedorGeneral">
         <label for>¿Caso remitido?</label>
-        <div class="seleccione" id="contenedor">
+        <!-- <div class="seleccione" id="contenedor">
           <div class="formulario">
             <div>
               <input type="radio" v-model="rem" value="1" name="remitido" />Si
@@ -21,8 +21,9 @@
               <input type="radio" v-model="rem" value="0" name="remitido" />No
             </div>
           </div>
-        </div>
-        <div class="contenedorGeneral" v-if="rem==1">
+        </div> -->
+        <!-- <div class="contenedorGeneral" v-if="rem==1"> -->
+        <div class="contenedorGeneral">
           <label class="derecha" for="remitido_a">Remitido a :</label>
           <input
             type="text"
@@ -126,7 +127,7 @@
               required
             />
           </div>
-          <div class="contenedorGeneral">
+          <!-- <div class="contenedorGeneral">
             <label for>¿Comisión de delito?</label>
             <div style="margin-top:10px;" class="seleccione">
               <input type="radio" value="1" v-model="delito" name="com_delito" />Si
@@ -134,8 +135,9 @@
               <input type="radio" value="0" v-model="delito" name="com_delito" />No
               <br />
             </div>
-          </div>
-          <div v-if="delito== 1">
+          </div> -->
+          <!-- <div v-if="delito== 1"> -->
+          <div>
             <div class="contenedorGeneral">
               <label for>Tipo de delito :</label>
               <input
@@ -360,10 +362,16 @@ export default {
       return (this.newRemision_name_input = null);
     },
     guardarFormularioG: function() {
+      if(this.rem === 0){
+        this.newRemision_name_input = 1;
+      }
+      if(this.delito === 0){
+        this.newDelito_name_input = 10;
+      }
       var urlForm = "registro_caso";
       const formu = document.getElementById("formCaso");
       var datos = new FormData(formu);
-      console.log(datos.get('ciudad_motivo'));
+      // console.log(datos.get('ciudad_motivo'));
 
       axios
         .post(urlForm, datos)

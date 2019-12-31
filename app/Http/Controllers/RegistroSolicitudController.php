@@ -71,7 +71,7 @@ class RegistroSolicitudController extends Controller
         $registro_solicitud->motivo = $request->motivo;
         $registro_solicitud->estado = $request->estado;
         $registro_solicitud->observacion = $request->observacion;
-        $registro_solicitud->fecha = $request->fecha;
+        // $registro_solicitud->fecha = $request->fecha;
         $registro_solicitud->id_solicitante = $solicitante->id;
         // $registro_solicitud->id_user = 5;
         $registro_solicitud->id_user = Auth::user()->id;
@@ -83,7 +83,7 @@ class RegistroSolicitudController extends Controller
         $registro_solicitud->motivo = $request->motivo;
         $registro_solicitud->estado = $request->estado;
         $registro_solicitud->observacion = $request->observacion;
-        $registro_solicitud->fecha = $request->fecha;
+        // $registro_solicitud->fecha = $request->fecha;
         $registro_solicitud->id_solicitante = $request->id_solicitante_input;
         // $registro_solicitud->id_user = 5;
         $registro_solicitud->id_user = Auth::user()->id;
@@ -132,20 +132,21 @@ class RegistroSolicitudController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // print_r("hola");
         if ($request->id_solicitante_input == null ){
             print_r ("if");
-        $solicitante = Solicitante::find($id);
+        $solicitante = Solicitante::find($request->id_solicitante);
         $solicitante->nombre = $request->nombre;
         $solicitante->apellido = $request->apellido;
         $solicitante->tipo_documento = $request->tipo_doc;
         $solicitante->no_documento = $request->documento;
         $solicitante->save();
 
-        $registro_solicitud = Registro_solicitud::find($id);;
+        $registro_solicitud = Registro_solicitud::find($id);
         $registro_solicitud->motivo = $request->motivo;
         $registro_solicitud->estado = $request->estado;
         $registro_solicitud->observacion = $request->observacion;
-        $registro_solicitud->fecha = $request->fecha;
+        // $registro_solicitud->fecha = $request->fecha;
         $registro_solicitud->id_solicitante = $solicitante->id;
         // $registro_solicitud->id_user = 5;
         $registro_solicitud->id_user = Auth::user()->id;
@@ -153,11 +154,11 @@ class RegistroSolicitudController extends Controller
         }
         else{
            //print_r ("else");
-        $registro_solicitud = new Registro_solicitud();
+           $registro_solicitud = Registro_solicitud::find($id);
         $registro_solicitud->motivo = $request->motivo;
         $registro_solicitud->estado = $request->estado;
         $registro_solicitud->observacion = $request->observacion;
-        $registro_solicitud->fecha = $request->fecha;
+        // $registro_solicitud->fecha = $request->fecha;
         $registro_solicitud->id_solicitante = $request->id_solicitante_input;
         // $registro_solicitud->id_user = 5;
         $registro_solicitud->id_user = Auth::user()->id;

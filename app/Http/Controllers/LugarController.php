@@ -47,9 +47,10 @@ class LugarController extends Controller
      * @param  \App\Lugar  $lugar
      * @return \Illuminate\Http\Response
      */
-    public function show(Lugar $lugar)
+    public function show($id)
     {
-        //
+        $lugar = Lugar::findOrFail($id);
+        return $lugar;
     }
 
     /**

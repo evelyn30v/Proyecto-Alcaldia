@@ -14,7 +14,8 @@ class SolicitanteController extends Controller
      */
     public function index()
     {
-        
+        $solicitante = Solicitante::get();
+        return $solicitante;
     }
 
     /**
@@ -49,9 +50,10 @@ class SolicitanteController extends Controller
      * @param  \App\Solicitante  $solicitante
      * @return \Illuminate\Http\Response
      */
-    public function show(Solicitante $solicitante)
+    public function show($id)
     {
-        //
+        $solicitante = Solicitante::findOrFail($id);
+        return $solicitante;
     }
 
     /**

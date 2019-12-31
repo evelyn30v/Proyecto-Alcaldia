@@ -13,6 +13,10 @@ class Tipo_delitoTableSeeder extends Seeder
      */
     public function run()
     {
+
+        DB::table('tipo_delitos')->insert([
+            'nombre' => 'N/A',
+        ]);
         DB::table('tipo_delitos')->insert([
             'nombre' => 'Homicidio',
         ]);
@@ -39,6 +43,26 @@ class Tipo_delitoTableSeeder extends Seeder
         ]);
         DB::table('tipo_delitos')->insert([
             'nombre' => 'Vioilencia de pareja',
+        ]);
+
+
+        DB::table('tipo_delitos')->insert([
+            'nombre' => 'Violencia intrafamiliar',
+        ]);
+        DB::table('tipo_delitos')->insert([
+            'nombre' => 'Inasistencia alimentaria',
+        ]);
+        DB::table('tipo_delitos')->insert([
+            'nombre' => 'Abandono, negligencia, descuido adulto mayor',
+        ]);
+        DB::table('tipo_delitos')->insert([
+            'nombre' => 'Abuso sexual menor de edad',
+        ]);
+        DB::table('tipo_delitos')->insert([
+            'nombre' => 'Abuso sexual menor de 14 años',
+        ]);
+        DB::table('tipo_delitos')->insert([
+            'nombre' => 'Violencia de género',
         ]);
     }
 }

@@ -42,19 +42,19 @@
             <select class="izquierda, redondear" name="delito" v-model="newDelito" required>
               <option selected value="0">Elige una opción</option>
               <optgroup label="Homicidio">
-                <option value="1">Homicidio</option>
+                <option value="2">Homicidio</option>
               </optgroup>
               <optgroup label="Hurto">
-                <option value="2">Hurto a personas</option>
-                <option value="3">Hurto a comercio</option>
-                <option value="4">Hurto a residencias</option>
-                <option value="5">Hurto de automotores</option>
-                <option value="6">Extorsión</option>
+                <option value="3">Hurto a personas</option>
+                <option value="4">Hurto a comercio</option>
+                <option value="5">Hurto a residencias</option>
+                <option value="6">Hurto de automotores</option>
+                <option value="7">Extorsión</option>
               </optgroup>
               <optgroup label="Violencia">
-                <option value="7">Violencia a niños y adolescentes</option>
-                <option value="8">Vioilencia al adulto mayor</option>
-                <option value="9">Violencia de pareja</option>
+                <option value="8">Violencia a niños y adolescentes</option>
+                <option value="9">Vioilencia al adulto mayor</option>
+                <option value="10">Violencia de pareja</option>
               </optgroup>
             </select>
             <!-- <input type="text" v-model="newDelito" name="delito"> -->
@@ -84,18 +84,18 @@
             <label class="derecha" for="label_delito">Fecha :</label>
             <div class="formulario">
               <select class="redondear" name="mes" v-model="newMes" required>
-                <option value="Enero">Enero</option>
-                <option value="Febrero">Febrero</option>
-                <option value="Marzo">Marzo</option>
-                <option value="Abril">Abril</option>
-                <option value="Mayo">Mayo</option>
-                <option value="Junio">Junio</option>
-                <option value="Julio">Julio</option>
-                <option value="Agosto">Agosto</option>
-                <option value="Septiembre">Septiembre</option>
-                <option value="Octubre">Octubre</option>
-                <option value="Noviembre">Noviembre</option>
-                <option value="Diciembre">Diciembre</option>
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
               </select>
               <!-- <input type="text" v-model="newMes" name="delito"> -->
               <p></p>

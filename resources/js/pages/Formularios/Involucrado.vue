@@ -37,56 +37,55 @@
           <label for>Género :</label>
           <select class="redondear" name="involucrado[genero][]" required>
             <option value selected>Seleccione</option>
-            <option value="f">Femenino</option>
-            <option value="m">Masculino</option>
-            <option value="n">No sabe, no responde</option>
-            <option value="o">Otro</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Masculino">Masculino</option>
+            <option value="No sabe, no responde">No sabe, no responde</option>
+            <option value="Otro">Otro</option>
           </select>
         </div>
         <div class="contenedorGeneral">
           <label for>Enfoque diferencial :</label>
           <select class="izquierda, redondear" name="involucrado[comunidad][]" required>
             <option selected value="0">Seleccione</option>
-            <option value="1">Indígena</option>
+            <option value="Indígena">Indígena</option>
             <optgroup label="Comunidades negras">
-              <option value="2">Afrocolombianas</option>
-              <option value="3">Palenqueras</option>
-              <option value="4">Raizales</option>
+              <option value="Afrocolombianas">Afrocolombianas</option>
+              <option value="Palenqueras">Palenqueras</option>
+              <option value="Raizales">Raizales</option>
             </optgroup>
             <optgroup label="Gitanos">
-              <option value="5">Rom</option>
-              <option value="6">Extorsión</option>
+              <option value="Rom">Rom</option>
             </optgroup>
-            <option value="10">persona con discapacidad</option>
-            <option value="11">No aplica</option>
+            <option value="persona con discapacidad">persona con discapacidad</option>
+            <option value="No aplica">No aplica</option>
           </select>
         </div>
         <div class="contenedorGeneral">
           <label for>Estado civil :</label>
           <select class="redondear" name="involucrado[estado_civil][]" required>
             <option value selected>Seleccione</option>
-            <option value="SO">Soltero</option>
-            <option value="CA">Casado</option>
-            <option value="UL">Unión libre</option>
-            <option value="DI">Divorsiado</option>
+            <option value="Soltero">Soltero</option>
+            <option value="Casado">Casado</option>
+            <option value="Unión libre">Unión libre</option>
+            <option value="Divorsiado">Divorsiado</option>
           </select>
         </div>
         <div class="contenedorGeneral">
           <label for>Grado de escolaridad :</label>
           <select class="redondear" name="involucrado[grado_esco][]" required>
             <option value selected>Seleccione</option>
-            <option value="PI">Educación de la primera infancia</option>
-            <option value="BP">Educación básica primaria</option>
-            <option value="BS">Educación básica secundaria</option>
-            <option value="EM">Educación media</option>
-            <option value="PS">Educación postsecundaria, no superior</option>
-            <option value="ET">Educación técnica profesional y tecnológica</option>
-            <option value="UN">Universitario o equivalente</option>
-            <option value="ES">Especialización</option>
-            <option value="MA">Maestría o equivalente</option>
-            <option value="DO">Doctorado o equivalente</option>
-            <option value="NN">Ninguna</option>
-            <option value="NI">No informa</option>
+            <option value="Educación de la primera infancia">Educación de la primera infancia</option>
+            <option value="Educación básica primaria">Educación básica primaria</option>
+            <option value="Educación básica secundaria">Educación básica secundaria</option>
+            <option value="Educación media">Educación media</option>
+            <option value="Educación postsecundaria, no superior">Educación postsecundaria, no superior</option>
+            <option value="Educación técnica profesional y tecnológica">Educación técnica profesional y tecnológica</option>
+            <option value="Universitario o equivalente">Universitario o equivalente</option>
+            <option value="Especialización">Especialización</option>
+            <option value="Maestría o equivalente">Maestría o equivalente</option>
+            <option value="Doctorado o equivalente">Doctorado o equivalente</option>
+            <option value="Ninguna">Ninguna</option>
+            <option value="No informa">No informa</option>
           </select>
         </div>
 
@@ -103,9 +102,9 @@
           <label class="derecha" for="label_delito">Documento :</label>
           <div class="formulario">
             <select class="redondear" name="involucrado[doc_id][]" v-model="documento" required>
-              <option value="1">TI</option>
-              <option value="2">CC</option>
-              <option value="3">Extranjero</option>
+              <option value="TI">TI</option>
+              <option value="CC">CC</option>
+              <option value="Cédula de extranjero">Cédula de extranjero</option>
             </select>
             <p></p>
             <input type="number" class="redondear" name="involucrado[documento][]" placeholder="No. de identificación" required/>
@@ -115,7 +114,6 @@
           <label>Fecha de expedición del documento :</label>
           <input type="date" placeholder="dd/mm/aa" name="involucrado[fecha_expe][]" class="redondear" required/>
         </div>
-        <div id="lugar_exped_doc" v-if="documento==1|documento==2">
           <p>Lugar de expedición del documento :</p>
 
           <div class="contenedorGeneral">
@@ -146,9 +144,8 @@
               >{{c.nombre}}</option>
             </select>
           </div>
-        </div>
-
-        <p>Datos de contacto :</p>
+        <p></p>
+        <h5>Datos de contacto :</h5>
 
         <div class="contenedorGeneral">
           <label for>País :</label>

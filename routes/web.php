@@ -53,28 +53,46 @@ Route::get('/RegistroUsuario', function () {
  Route::get('/registroCaso', function () {
      return view('home');
  })->middleware('auth');
+ Route::get('/reportesC', function () {
+     return view('home');
+ })->middleware('auth');
+ Route::get('/reportes', function () {
+     return view('home');
+ })->middleware('auth');
+ Route::get('/Casos', function () {
+     return view('home');
+ })->middleware('auth');
 
 Route::resource('user','UserController')->middleware('auth');
 Route::resource('tipoUsuario','TipoUsuarioController')->middleware('auth');
 Route::resource('solicitudRgistro','RegistroSolicitudController')->middleware('auth');
 Route::resource('delito','RegistroDelitoController')->middleware('auth');
+Route::post('get_delito','RegistroDelitoController@reportes')->middleware('auth');
+Route::post('get_delito_mes','RegistroDelitoController@mes_reportes')->middleware('auth');
 Route::resource('medidac','RegistroMcController')->middleware('auth');
 Route::resource('medidap','RegistroMpController')->middleware('auth');
-Route::get('solicitante','RegistroSolicitudController@view')->middleware('auth');
+Route::resource('solicitante','SolicitanteController')->middleware('auth');
 Route::get('tipo_usuario','UserController@view')->middleware('auth');
-Route::get('pais','PaisController@index')->middleware('auth');
-Route::get('depto','DepartamentoController@index')->middleware('auth');
-Route::get('ciudad','CiudadController@index')->middleware('auth');
-Route::get('lugar','LugarController@index')->middleware('auth');
-Route::post('newsolicitante','RegistroSolicitudController@solicitante')->middleware('auth');
-Route::resource('remision','RemisionController')->middleware('auth');
+
+Route::resource('lugar','LugarController')->middleware('auth');
+Route::get('motivo','RegistroCasoController@motivo')->middleware('auth');
+// Route::post('newsolicitante','RegistroSolicitudController@solicitante')->middleware('auth');
+// Route::resource('remision','RemisionController')->middleware('auth');
 Route::resource('tDelito','TipoDelitoController')->middleware('auth');
 Route::resource('tipo_motivo','TipoMotivoController')->middleware('auth');
 Route::resource('registro_caso','RegistroCasoController')->middleware('auth');
+Route::get('involucrado','RegistroCasoController@involucrado')->middleware('auth');
+Route::get('remision','RegistroCasoController@remision')->middleware('auth');
+Route::resource('citas','CitacionController')->middleware('auth');
+Route::resource('cte','ConvocanteController')->middleware('auth');
+Route::resource('cdo','ConvocadosController')->middleware('auth');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('usuario','UserController')->middleware('auth');  
 
-Route::resource('usuario','UserController')->middleware('auth');   
+Route::get('pais','PaisController@index')->middleware('auth');
+Route::get('depto','DepartamentoController@index')->middleware('auth');
+Route::get('ciudad','CiudadController@index')->middleware('auth');
 

@@ -18,7 +18,7 @@ class RegistroSolicitud extends Migration
             $table->string('motivo');
             $table->enum('estado',['pendiente','resuelto']);
             $table->text('observacion')->nullable();
-            $table->date('fecha');
+            // $table->date('fecha');
             $table->unsignedBigInteger('id_solicitante');
             $table->unsignedBigInteger('id_user');
             $table->timestamps();

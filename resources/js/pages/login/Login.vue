@@ -5,6 +5,24 @@
         <router-link to="/" class="close" style="text-align: lefts;">&times;</router-link>
         
         <div class="contenedor">
+
+<!-- *****************************************mensajes************************************************* -->
+
+<span v-if="msgFalse" >
+      <div class="danger" name="danger">
+        <p style="color:#ffff">
+          <i class="material-icons">error</i>
+          <strong>¡oh, oh! Hubo un problema al iniciar sesión, verifica que las credenciales sean correctas</strong> 
+        </p>
+        <span
+          class="closebtn"
+          @click="estadoFalse()"
+          style="font-size:36px; color:#ffff"
+        >&times;</span>
+      </div>
+    </span>
+
+<!-- *****************************************mensajes************************************************* -->
         <div class="formulario">
 
 
@@ -32,7 +50,8 @@
                         </p>
                     
                     <div class="clearfix, contenedorGeneral">
-                        <button class="buttonN" style="text-align: center;" type="submit">Ingresar</button>
+                        <button class="buttonN" style="text-align: center;" type="submit"> <span class="spinner-border spinner-border-sm" 
+                        role="status" aria-hidden="true" v-if="spinner" style="color:#ffff"></span>Ingresar</button>
                     </div>
                     
                 </form>
@@ -47,6 +66,9 @@
     export default {
          data() {
     return {
+      spinner:false,
+      msgFalse: false,
+
       inputEmail: "",
       inputPaswd: "",
       csrf: document
@@ -56,6 +78,7 @@
   },
   methods: {
     iniciarSesion: function() {
+      this.spinner=true;
       let url = "login";
       axios
         .post(url, {
@@ -69,8 +92,14 @@
         })
         .catch(err => {
           console.log("Error vue: ", err);
+          this.msgFalse=true;
+          this.spinner=false;
         });
-    }
+    },
+    estadoFalse: function(){
+            this.msgTrue=false;
+            this.msgFalse=false;
+        },
   }
 }
 </script>
