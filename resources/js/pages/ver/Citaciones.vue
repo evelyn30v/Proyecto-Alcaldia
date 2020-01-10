@@ -49,18 +49,25 @@
             <td v-for="l in lugarArray" :key="l.id" v-if="l.id===cit.id_lugar">{{l.nombre}}</td>
             <td>
               <div v-for="ctes in convocanteArray" :key="ctes.id +'cte'">
-              <h6 v-if="ctes.id_citacion===cit.id">-{{ctes.nombre}}</h6>
-            </div>
+                <h6 v-if="ctes.id_citacion===cit.id">-{{ctes.nombre}}</h6>
+              </div>
             </td>
             <td>
               <div v-for="cdos in convocadoArray" :key="cdos.id +'cdo'">
-              <h6 v-if="cdos.id_citacion===cit.id">-{{cdos.nombre}}</h6>
-            </div>
+                <h6 v-if="cdos.id_citacion===cit.id">-{{cdos.nombre}}</h6>
+              </div>
             </td>
             <td>
-              <div  v-for="l in lugarArray" :key="l.id" v-if="l.id===cit.id_lugar">
-                <a href="#" class="btnModificar" @click="estadoMod=true; capturarIdCita(cit.id, l.id)">Editar</a>
+              <div v-for="l in lugarArray" :key="l.id" v-if="l.id===cit.id_lugar">
+                <a
+                  href="#"
+                  class="btnModificar"
+                  @click="estadoMod=true; capturarIdCita(cit.id, l.id)"
+                >Editar</a>
               </div>
+            </td>
+            <td>
+              <a href="#">Imprimir</a>
             </td>
           </tr>
         </tbody>
@@ -69,7 +76,7 @@
         <!-- **************************************************************cita modificar************************************************* -->
         <h4 style="margin-top:40px; text-align: center;">Modificar citación</h4>
 
-        <form method="PUT" @submit.prevent="updateCita()" id="updateCita">
+        <form method="PUT" @submit.prevent="updateCita()" id="update_form">
           <input type="hidden" name="_token" :value="csrf" />
           <div class="formulario">
             <div class="izquierda">
@@ -89,10 +96,26 @@
                   <option v-for="l in lugarArray" :key="l.id">{{l.nombre}}</option>
                 </datalist>
                 <input type="hidden" name="lugar_cita" v-model="newLugar_name_input" required />
-                <input type="hidden" name="id_lugar_input_hidden" v-model="newid_lugar_input_hidden">
+                <input
+                  type="hidden"
+                  name="id_lugar_input_hidden"
+                  v-model="newid_lugar_input_hidden"
+                />
               </div>
-
-              <label>Convocante(s) :</label>
+              <div class="contenedorGeneral">
+                <label for>hora de citación :</label>
+                <input
+                  type="time"
+                  v-model="newHoracita"
+                  id="hora-cita"
+                  name="hora_cita"
+                  class="redondear"
+                  min="08:00"
+                  max="18:00"
+                  required
+                />
+              </div>
+              <!-- <label>Convocante(s) :</label>
               <div v-if="estado_cte">
                 <div v-for="(cte,i) in convocanteArray" :key="cte[i]">
                   <input
@@ -103,9 +126,9 @@
                     required
                   />
                 </div>
-              </div>
+              </div> -->
 
-              <div class="dos">
+              <!-- <div class="dos">
                 <input
                   type="number"
                   class="redondear"
@@ -115,9 +138,9 @@
                 <div class="mas" @click="ArrayConvocantes_m()" @focus="estado_cte = false">
                   <i class="material-icons">add</i>
                 </div>
-              </div>
+              </div> -->
 
-              <label>Convocados(s) :</label>
+              <!-- <label>Convocados(s) :</label>
               <div v-if="estado_cdo">
                 <div v-for="(cdo,i) in convocadoArray" :key="cdo[i]">
                   <input
@@ -128,8 +151,8 @@
                     required
                   />
                 </div>
-              </div>
-              <div class="dos">
+              </div> -->
+              <!-- <div class="dos">
                 <input
                   type="number"
                   class="redondear"
@@ -139,7 +162,7 @@
                 <div class="mas" @click="ArrayConvocados_m()" @focus="estado_cdo = false">
                   <i class="material-icons">add</i>
                 </div>
-              </div>
+              </div> -->
             </div>
 
             <div class="vl"></div>
@@ -156,19 +179,7 @@
                   required
                 />
               </div>
-              <div class="contenedorGeneral">
-                <label for>hora de citación :</label>
-                <input
-                  type="time"
-                  v-model="newHoracita"
-                  id="hora-cita"
-                  name="hora_cita"
-                  class="redondear"
-                  min="08:00"
-                  max="18:00"
-                  required
-                />
-              </div>
+              
               <div class="contenedorGeneral">
                 <label for>Duración :</label>
                 <div class="formulario">
@@ -190,20 +201,23 @@
               </div>
             </div>
           </div>
-        <textarea
-          name="observacion"
-          id="obs"
-          cols="60"
-          rows="10"
-          class="textarea"
-          v-model="newObs"
-          placeholder="Asistencias y datos reelevantes..."
-        ></textarea>
-        </form>
+          <textarea
+            name="observacion"
+            id="obs"
+            cols="60"
+            rows="10"
+            class="textarea"
+            v-model="newObs"
+            placeholder="Asistencias y datos reelevantes..."
+          ></textarea>
         <div class="formulario">
           <a href="#" class="buttonA" @click="estadoMod=false">Cerrar</a>
           <p></p>
-          <button class="buttonN" style="text-align: center;" @click.prevent="updateCita();guardarLug();">
+          <button
+            class="buttonN"
+            style="text-align: center;"
+            @click.prevent="updateCita();guardarLug();"
+          >
             <span
               class="spinner-border spinner-border-sm"
               role="status"
@@ -214,6 +228,7 @@
             Guardar
           </button>
         </div>
+        </form>
         <!-- **************************************************************cita modificar************************************************* -->
       </div>
     </div>
@@ -226,7 +241,7 @@ import citacion from "../Formularios/Cita.vue";
 export default {
   name: "citaciones",
   components: {
-    citacion
+    citacion,
   },
   data() {
     return {
@@ -239,39 +254,39 @@ export default {
       lugarArray: [],
       convocadoArray: [],
       convocanteArray: [],
-      CitacionLlenarArray:[],
-      LugarLlenarArray:[],
-      newid_lugar_input_hidden:"",
+      CitacionLlenarArray: [],
+      LugarLlenarArray: [],
+      newid_lugar_input_hidden: "",
       // cteLlenarArray:[],
       // cdoLlenarArray:[],
 
-      lengtcte:"",
-      lengtcdo:"",
+      lengtcte: "",
+      lengtcdo: "",
 
       newLugar_name_input: "",
       delito: "",
       newLugar: "",
       estado_cte: false,
       estado_cdo: false,
-      newFechaCita:"",
-      newHoracita:"",
-      NewTiempoDuracion:"",
-      newDuracion:"",
+      newFechaCita: "",
+      newHoracita: "",
+      NewTiempoDuracion: "",
+      newDuracion: "",
       no_cdos: "",
       no_ctes: "",
       newObs: "",
 
-      nombreLugarLlenar:"",
+      nombreLugarLlenar: "",
 
-      idCita:"",
-      idLugar:"",
+      idCita: "",
+      idLugar: "",
       csrf: document
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content")
     };
   },
   methods: {
-    capturarIdCita: function(id,id_l){
+    capturarIdCita: function(id, id_l) {
       this.idCita = id;
       this.idLugar = id_l;
       this.citacionLlenar(this.idCita);
@@ -293,12 +308,12 @@ export default {
     },
     LugarLlenar: function(id) {
       var urlcitacionview = "lugar/" + id;
-      console.log(id);
-      
-       axios.get(urlcitacionview).then(Response => {
+      // console.log(id);
+
+      axios.get(urlcitacionview).then(Response => {
         this.LugarLlenarArray = Response.data;
 
-        this.newLugar = this.LugarLlenarArray.nombre;        
+        this.newLugar = this.LugarLlenarArray.nombre;
         this.newid_lugar_input_hidden = id;
       });
     },
@@ -313,7 +328,7 @@ export default {
       for (var i in this.lugarArray) {
         if (this.lugarArray[i].nombre == this.newLugar) {
           this.newLugar_name_input = this.lugarArray[i].id;
-      console.log(this.newLugar_name_input);
+          // console.log(this.newLugar_name_input);
           // console.log("if");
           return this.newLugar_name_input;
         }
@@ -327,12 +342,12 @@ export default {
         // console.log(this.remisionesArray);
       });
     },
-    
+
     citacionLlenar: function(id) {
       var urlcitacionview = "citas/" + id;
       console.log(id);
-      
-       axios.get(urlcitacionview).then(Response => {
+
+      axios.get(urlcitacionview).then(Response => {
         this.CitacionLlenarArray = Response.data;
 
         this.newFechaCita = this.CitacionLlenarArray.fecha;
@@ -342,7 +357,7 @@ export default {
         this.NewTiempoDuracion = this.CitacionLlenarArray.tiempo;
       });
     },
-    
+
     cteView: function() {
       var urlsolic = "cte";
       axios.get(urlsolic).then(Response => {
@@ -380,17 +395,30 @@ export default {
           // this.msgFalse=true;
         });
     },
-    updateCita: function(){
-      
-      this.spinner=true;
+    updateCita: function() {
+      this.guardarLug();
+      this.spinner = true;
       console.log(this.idCita);
-      
-      const formu = document.getElementById("updateCita");
-      var datos = new FormData(formu);
 
-      var url = 'citas/' + this.idCita;
-      axios.put(url,datos)
-      .then(result => {
+      var url = "citas/" + this.idCita;
+      const formu = document.getElementById("update_form");
+      var datos = new FormData(formu);
+      // console.log(datos);
+      // console.log(this.newFechaCita);
+      
+      axios
+        .put(url, {
+          observacion : this.newObs,
+          lugarInput_cita : this.newLugar,
+          lugar_cita : this.newLugar_name_input,
+          id_lugar_input_hidden: this.newid_lugar_input_hidden,
+          fecha_cita : this.newFechaCita,
+          hora_cita : this.newHoracita,
+          duracion_cita : this.newDuracion,
+          tiempo_cita : this.NewTiempoDuracion,
+          id_caso :this.id_caso,
+        })
+        .then(result => {
           this.spinner = false;
           // location.reload();
           console.log("respuesta vue: ", result);

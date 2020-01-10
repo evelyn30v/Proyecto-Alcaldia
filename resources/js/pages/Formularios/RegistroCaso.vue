@@ -10,7 +10,14 @@
       <input type="hidden" name="_token" :value="csrf" />
 
       <div class="contenedorGeneral">
-        <label for>¿Caso remitido?</label>
+        <label for>Estado del caso:</label>
+        <select name="estado" class="redondear">
+          <option value="" disabled selected>Seleccione</option>
+          <option value="Iniciado">Iniciado</option>
+          <option value="Conciliado">Conciliado</option>
+          <option value="No acuerdo">No acuerdo</option>
+          <option value="Resuelto">Resuelto</option>
+        </select>
         <!-- <div class="seleccione" id="contenedor">
           <div class="formulario">
             <div>
@@ -26,6 +33,7 @@
         <div class="contenedorGeneral">
           <label class="derecha" for="remitido_a">Remitido a :</label>
           <input
+          class="redondear"
             type="text"
             list="remitidoA"
             name="remitir_aInput"
@@ -200,9 +208,6 @@
         </div>
         <Cita></Cita>
       </div>
-      <!-- ****************************************************ImprimirCita********************************************************************* -->
-      <div class="contenedorGeneral">
-        <router-link to="/RegistroC" style="text-align: center;">Imprimir citación</router-link>
         <div class="contenedorGeneral">
           <h5>Observaciones :</h5>
           <textarea
@@ -213,7 +218,7 @@
             placeholder="Escriba un texto corto"
           ></textarea>
         </div>
-      </div>
+
 
       <div class="formulario">
         <router-link to="/RegistroC" class="buttonA" style="text-align: center;">Atrás</router-link>

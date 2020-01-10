@@ -80,7 +80,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $User = User::findOrFail($id);
+        return $User;
     }
 
     /**

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Registro_delito;
+use App\Registro_mc;
+use App\Registro_mp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware;
@@ -28,14 +30,90 @@ class RegistroDelitoController extends Controller
         $get_anio_f = $request->anio_f;
         $get_delito = $request->delitos_report;
 
-        if ($get_delito != 0)  {
+        if ($get_delito != 1)  {
             $tipoUser = Registro_delito::whereBetween('anio',[$get_anio_i, $get_anio_f])
                 ->where('tipo_delito', [$get_delito])->orderBy('anio', 'ASC')->get();
             return $tipoUser;
         }
-        elseif ($get_delito == 0) {
+        elseif ($get_delito == 1) {
             $tipoUser = Registro_delito::whereBetween('anio',[$get_anio_i, $get_anio_f])->get();
             return $tipoUser;
+        }
+        
+    }
+    public function reportes_mc_anio(Request $request)
+    {
+        // print_r($request->all());
+        $get_anio_i = $request->anio_i;
+        $get_anio_f = $request->anio_f;
+        $get_delito = $request->delitos_report;
+
+        if ($get_delito != 0)  {
+            $reportes_mc = Registro_mc::whereBetween('anio',[$get_anio_i, $get_anio_f])
+                ->where('tipo_delito', [$get_delito])->orderBy('anio', 'ASC')->get();
+            return $reportes_mc;
+        }
+        elseif ($get_delito == 0) {
+            $reportes_mc = Registro_mc::whereBetween('anio',[$get_anio_i, $get_anio_f])->get();
+            return $reportes_mc;
+        }
+        
+    }
+    public function reportes_mp_anio(Request $request)
+    {
+        // print_r($request->all());
+        $get_anio_i = $request->anio_i;
+        $get_anio_f = $request->anio_f;
+        $get_delito = $request->delitos_report;
+
+        if ($get_delito != 0)  {
+            $reportes_mp = Registro_mp::whereBetween('anio',[$get_anio_i, $get_anio_f])
+                ->where('tipo_delito', [$get_delito])->orderBy('anio', 'ASC')->get();
+            return $reportes_mp;
+        }
+        elseif ($get_delito == 0) {
+            $reportes_mp = Registro_mp::whereBetween('anio',[$get_anio_i, $get_anio_f])->get();
+            return $reportes_mp;
+        }
+        
+    }
+    public function reportes_mc_mes(Request $request)
+    {
+        $get_mes_i = $request->mes_i;
+        $get_mes_f = $request->mes_f;
+        $get_anio_mes = $request->an_me;
+        $get_delito = $request->delitos_report;
+
+        if ($get_delito != 0)  {
+            $mes_get_reporte = Registro_mc::whereBetween('mes',[$get_mes_i, $get_mes_f])
+                ->where('tipo_delito', [$get_delito])->orderBy('mes', 'ASC')
+                ->where('anio',[$get_anio_mes])->get();
+            return $mes_get_reporte;
+        }
+        elseif ($get_delito == 0) {
+            $mes_get_reporte = Registro_mc::whereBetween('mes',[$get_mes_i, $get_mes_f])
+            ->where('anio',[$get_anio_mes])->get();
+            return $mes_get_reporte;
+        }
+        
+    }
+    public function reportes_mp_mes(Request $request)
+    {
+        $get_mes_i = $request->mes_i;
+        $get_mes_f = $request->mes_f;
+        $get_anio_mes = $request->an_me;
+        $get_delito = $request->delitos_report;
+
+        if ($get_delito != 0)  {
+            $mes_get_reporte = Registro_mp::whereBetween('mes',[$get_mes_i, $get_mes_f])
+                ->where('tipo_delito', [$get_delito])->orderBy('mes', 'ASC')
+                ->where('anio',[$get_anio_mes])->get();
+            return $mes_get_reporte;
+        }
+        elseif ($get_delito == 0) {
+            $mes_get_reporte = Registro_mp::whereBetween('mes',[$get_mes_i, $get_mes_f])
+            ->where('anio',[$get_anio_mes])->get();
+            return $mes_get_reporte;
         }
         
     }

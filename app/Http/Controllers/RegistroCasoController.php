@@ -17,6 +17,8 @@ use App\Convocado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware;
+use DateTime;
+
 
 class RegistroCasoController extends Controller
 {
@@ -45,7 +47,63 @@ class RegistroCasoController extends Controller
         $casos = Motivo::get();
         return $casos;
     }
-    
+    public function reportes_anio(Request $request)
+    {
+        // print_r($request->all());
+        $get_anio_i = $request->anio_i;
+        $get_anio_f = $request->anio_f;
+        $get_delito = $request->delitos_report;
+
+        // if ($get_delito != 0)  {
+            // $tipoUser = Registro_caso::whereBetween('created_at',[$get_anio_i, $get_anio_f])
+            //     ->where('tipo_delito', [$get_delito])->orderBy('created_at', 'ASC')->get();
+            // return $tipoUser;
+        // }
+        // elseif ($get_delito == 0) {
+            $casos = Registro_caso::whereBetween('created_at',[$get_anio_i, $get_anio_f])->get();
+            return $casos;
+        // }
+        
+    }
+    public function conciliados(Request $request){
+        $get_anio_i = $request->anio_i;
+        $get_anio_f = $request->anio_f;
+        
+        $tipoUser = Registro_caso::whereBetween('created_at',[$get_anio_i, $get_anio_f])
+                ->where('estado', 'Conciliado')->orderBy('created_at', 'ASC')->get();
+            return $tipoUser;
+    }
+
+    public function no_acuerdo(Request $request)
+    {
+        $get_anio_i = $request->anio_i;
+        $get_anio_f = $request->anio_f;
+        
+        $tipoUser = Registro_caso::whereBetween('created_at',[$get_anio_i, $get_anio_f])
+                ->where('estado', 'No acuerdo')->orderBy('created_at', 'ASC')->get();
+            return $tipoUser;
+        
+    }
+    public function resuelto(Request $request)
+    {
+        $get_anio_i = $request->anio_i;
+        $get_anio_f = $request->anio_f;
+        
+        $tipoUser = Registro_caso::whereBetween('created_at',[$get_anio_i, $get_anio_f])
+                ->where('estado', 'Resuelto')->orderBy('created_at', 'ASC')->get();
+            return $tipoUser;
+        
+    }
+    public function remitido(Request $request)
+    {
+        $get_anio_i = $request->anio_i;
+        $get_anio_f = $request->anio_f;
+        
+        $tipoUser = Registro_caso::whereBetween('created_at',[$get_anio_i, $get_anio_f])
+                ->where('id_remision','>', '1')->orderBy('created_at', 'ASC')->get();
+            return $tipoUser;
+        
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -54,6 +112,24 @@ class RegistroCasoController extends Controller
     public function create()
     {
         //
+    }
+    public function reportes(Request $request)
+    {
+        // print_r($request->all());
+        $get_anio_i = $request->anio_i;
+        $get_anio_f = $request->anio_f;
+        $get_delito = $request->delitos_report;
+
+        if ($get_delito != 0)  {
+            $tipoUser = Registro_caso::whereBetween('created_at',[$get_anio_i, $get_anio_f])
+                ->where('tipo_delito', [$get_delito])->orderBy('created_at', 'ASC')->get();
+            return $tipoUser;
+        }
+        elseif ($get_delito == 0) {
+            $tipoUser = Registro_caso::whereBetween('created_at',[$get_anio_i, $get_anio_f])
+            ->orderBy('created_at', 'ASC')->get();
+            return $tipoUser;
+        }
     }
 
     /**
@@ -98,6 +174,7 @@ class RegistroCasoController extends Controller
 
             $registro_caso->id_user = Auth::user()->id;
             $registro_caso->id_motivo = $motivo->id;
+            $registro_caso->estado = $request->estado;
             $registro_caso->id_remision = $remision->id;
             $registro_caso->save();
 
@@ -195,6 +272,7 @@ class RegistroCasoController extends Controller
     
                 $registro_caso->id_user = Auth::user()->id;
                 $registro_caso->id_motivo = $motivo->id;
+                $registro_caso->estado = $request->estado;
                 $registro_caso->id_remision = $request->nombre_remision_input;
                 $registro_caso->save();
     
@@ -288,6 +366,7 @@ class RegistroCasoController extends Controller
     
                 $registro_caso->id_user = Auth::user()->id;
                 $registro_caso->id_motivo = $motivo->id;
+                $registro_caso->estado = $request->estado;
                 $registro_caso->id_remision = $request->nombre_remision_input;
                 $registro_caso->save();
     
@@ -382,6 +461,7 @@ class RegistroCasoController extends Controller
     
                 $registro_caso->id_user = Auth::user()->id;
                 $registro_caso->id_motivo = $motivo->id;
+                $registro_caso->estado = $request->estado;
                 $registro_caso->id_remision = $request->nombre_remision_input;
                 $registro_caso->save();
     
@@ -475,6 +555,7 @@ class RegistroCasoController extends Controller
     
                 $registro_caso->id_user = Auth::user()->id;
                 $registro_caso->id_motivo = $motivo->id;
+                $registro_caso->estado = $request->estado;
                 $registro_caso->id_remision = $remision->id;
                 $registro_caso->save();
     
@@ -569,6 +650,7 @@ class RegistroCasoController extends Controller
 
             $registro_caso->id_user = Auth::user()->id;
             $registro_caso->id_motivo = $motivo->id;
+            $registro_caso->estado = $request->estado;
             $registro_caso->id_remision = $request->nombre_remision_input;
             $registro_caso->save();
 
@@ -663,6 +745,7 @@ class RegistroCasoController extends Controller
 
             $registro_caso->id_user = Auth::user()->id;
             $registro_caso->id_motivo = $motivo->id;
+            $registro_caso->estado = $request->estado;
             $registro_caso->id_remision = $remision->id;
             $registro_caso->save();
 
@@ -757,6 +840,7 @@ class RegistroCasoController extends Controller
 
             $registro_caso->id_user = Auth::user()->id;
             $registro_caso->id_motivo = $motivo->id;
+            $registro_caso->estado = $request->estado;
             $registro_caso->id_remision = $remision->id;
             $registro_caso->save();
 

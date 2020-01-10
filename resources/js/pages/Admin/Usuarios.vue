@@ -8,10 +8,20 @@
     <form class="busqueda" action>
       <input type="hidden" name="_token" :value="csrf" />
       <div class="delgado" style="box-shadow: 0 6px 10px 0 rgba(13, 5, 44, 0.363)">
-        <input type="text" placeholder="Search.." name="search" />
-        <button type="submit" class="search" style="margin: 0px">
-          <i class="material-icons" style="color:white">search</i>
-        </button>
+        <input
+          type="text"
+          placeholder="Buscar..."
+          name="search"
+          style="margin:0px;"
+          v-model="newBuscar"
+        />
+        <select class="search buscar_por" style="margin: 0px" v-model="searchValue">
+          <Option disabled value style="color:#f0f0f0">Buscar por :</Option>
+          <Option value="1" style="color:#f0f0f0">Email</Option>
+          <Option value="2" style="color:#f0f0f0">Apellido</Option>
+          <Option value="3" style="color:#f0f0f0">Documento</Option>
+          <!-- <i class="material-icons" style="color:white">search</i>-->
+        </select>
       </div>
     </form>
     <div class="contenedor" id="usuarioget, solicitante">
@@ -25,7 +35,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="usuarioget in userArray" :key="usuarioget.id">
+          <tr v-for="usuarioget in casosFilter" :key="usuarioget.id">
             <td width="10px">{{usuarioget.cedula}}</td>
             <td width="30%">{{usuarioget.name}} {{usuarioget.apellido}}</td>
             <div v-for="dep in dependenciaArray" :key="dep.id" style="width:300px; margin:0px">
@@ -85,6 +95,8 @@ export default {
       estadoModificar: false,
       estadoVer: false,
       idUserTabla: "",
+      searchValue:"",
+      newBuscar:"",
       userArray: [],
       dependenciaArray: [],
       csrf: document
@@ -128,8 +140,38 @@ export default {
     this.userView();
   },
   computed: {
-    
-  }
+    casosFilter: function() {
+      var textSearch = this.newBuscar;
+
+      if (this.searchValue == 1) {
+        return this.userArray.filter(function(el) {
+          return (
+            el.email.toLowerCase().indexOf(textSearch.toLowerCase()) !== -1
+          );
+        });
+      }
+      if (this.searchValue == 2) {
+        return this.userArray.filter(function(el) {
+          return (
+            el.apellido.toLowerCase().indexOf(textSearch.toLowerCase()) !== -1
+          );
+        });
+      } else if (this.searchValue == 3) {
+        return this.userArray.filter(function(el) {
+          return (
+            el.cedula.toLowerCase().indexOf(textSearch.toLowerCase()) !==
+            -1
+          );
+        });
+      } else if (!this.searchValue) {
+        return this.userArray.filter(function(el) {
+          return (
+            el.name.toLowerCase().indexOf(textSearch.toLowerCase()) !== -1
+          );
+        });
+      }
+    }
+  },
 };
 </script>
 

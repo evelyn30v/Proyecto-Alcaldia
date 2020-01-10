@@ -7,14 +7,14 @@
             <h1>Dependencias registradas</h1>
         </div>
         <!-- <div class="contenedor"> -->
-            <form class="busqueda" action="">
+            <!-- <form class="busqueda" action="">
                 <input type="hidden" name="_token" :value="csrf">
                 <div class="delgado" style="box-shadow: 0 6px 10px 0 rgba(13, 5, 44, 0.363)">
                    <input type="text" placeholder="Search.." name="search" >
                     <button type="submit" class="search" style="margin: 0px">
                         <i class="material-icons" style="color:white">search</i></button> 
                 </div>
-            </form>
+            </form> -->
             <div class="contenedor" id="solicitudes, solicitante">
             <table class="table  table-hover table-sprite ">
                 <thead>

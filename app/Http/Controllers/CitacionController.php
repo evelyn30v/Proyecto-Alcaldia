@@ -17,7 +17,7 @@ class CitacionController extends Controller
      */
     public function index()
     {
-        $citas = Citacion::get();
+        $citas = Citacion::orderBy('created_at', 'DESC')->get();
         return $citas;
     }
     public function cte()
@@ -125,35 +125,35 @@ class CitacionController extends Controller
      * @param  \App\Citacion  $citacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Citacion $citacion)
+    public function update(Request $request, $id)
     {
-        print_r($request->lugar_cita);
+        print_r($request->all());
+        
+        if ($request->lugar_cita == null) {
+            Lugar::find($request->id_lugar_input_hidden);
 
-        // if ($request->lugar_cita == null) {
-        //     Lugar::find($request->id_lugar_input_hidden);
+            $lugar->nombre = $request->lugarInput_cita;
+            $lugar->save();
 
-        //     $lugar->nombre = $request->lugarInput_cita;
-        //     $lugar->save();
+            $citacion = Citacion::find($id);
 
-        //     Citacion::find($id);
+            $citacion->observacion = $request->observacion;
+            $citacion->fecha = $request->fecha_cita;
+            $citacion->hora_inicio = $request->hora_cita;
+            $citacion->id_lugar = $lugar->id;
+            $citacion->id_registro_caso = $request->id_caso;
+            $citacion->save();
 
-        //     $citacion->observacion = $request->observaciones;
-        //     $citacion->fecha = $request->fecha_cita;
-        //     $citacion->hora_inicio = $request->hora_cita;
-        //     $citacion->id_lugar = $lugar->id;
-        //     $citacion->id_registro_caso = $request->id_caso;
-        //     $citacion->save();
+        } else if ($request->lugar_cita != null) {
+            $citacion = Citacion::find($id);
 
-        // } else if ($request->lugar_cita != null) {
-        //     Citacion::find($id);
-
-        //     $citacion->observacion = $request->observaciones;
-        //     $citacion->fecha = $request->fecha_cita;
-        //     $citacion->hora_inicio = $request->hora_cita;
-        //     $citacion->id_lugar = $request->lugar_cita;
-        //     $citacion->id_registro_caso = $request->id_caso;
-        //     $citacion->save();
-        // }
+            $citacion->observacion = $request->observacion;
+            $citacion->fecha = $request->fecha_cita;
+            $citacion->hora_inicio = $request->hora_cita;
+            $citacion->id_lugar = $request->lugar_cita;
+            $citacion->id_registro_caso = $request->id_caso;
+            $citacion->save();
+        }
         // for ($i=0; $i < count($request["convocante.nombre"]); $i++) { 
         //     Convocante::find($request->id_convocante_input);
 

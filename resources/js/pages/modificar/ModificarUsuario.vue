@@ -49,7 +49,7 @@
         <input id="file-upload" @change="cambiarImg" type="file" style="display: none;" />
       </div> -->
       <!-- <input type="text" name="perfil" v-model="newPerfil"> -->
-      <div class="formulario" v-for="d in userArray" :key="d.id" v-if="idUser === d.id">
+      <div class="formulario">
         <div class="izquierda">
           <div class="labelSpan">
             <label for="label_delito">Nombre :</label>
@@ -59,7 +59,6 @@
             type="text"
             name="nombre"
             class="redondear"
-            :placeholder="d.name"
             v-model="newName"
             required
           />
@@ -71,7 +70,6 @@
             type="text"
             name="apellido"
             class="redondear"
-            :placeholder="d.apellido"
             v-model="newApellido"
             required
           />
@@ -84,7 +82,6 @@
             type="number"
             name="cedula"
             class="redondear"
-            :placeholder="d.cedula"
             v-model="newCedula"
             required
           />
@@ -98,7 +95,6 @@
             type="number"
             name="celular"
             class="redondear"
-            :placeholder="d.celular"
             v-model="newCelular"
             required
           />
@@ -113,7 +109,6 @@
             type="email"
             name="email"
             class="redondear"
-            :placeholder="d.email"
             v-model="newEmail"
             required
           />
@@ -126,7 +121,6 @@
             type="password"
             name="password"
             class="redondear"
-            :placeholder="d.contrasenia"
             v-model="newContraseña"
             required
           />
@@ -191,11 +185,18 @@ export default {
   },
   methods: {
     userView: function () {
-        var urlUser = 'user';
+        var urlUser = "usuario/" + this.idUser;
         axios.get(urlUser)
             .then(Response=>{
                 this.userArray = Response.data;
-                
+                this.newName = this.userArray.name;
+                this.newApellido = this.userArray.apellido;
+                this.newCedula = this.userArray.cedula;
+                this.newCelular = this.userArray.celular;
+                this.newEmail = this.userArray.email;
+                this.newContraseña = this.userArray.password;
+                console.log(this.userArray);
+                                
             })
         },
     dependenciaView: function () {
@@ -220,12 +221,12 @@ export default {
     //   ver.readAsDataURL(file);
     //   // console.log(imgUrl);
     // },
-    updateUser(idGet) {
-        console.log(idGet.id);
+    updateUser() {
+        console.log(this.idUser);
         
         this.spinner=true;
-        var url = "api/usuario/" + idGet.id;
-        this.user_id = idGet.id;
+        var url = "api/usuario/" + this.idUser;
+        // this.user_id = idUser;
 
         axios
           .put(url, {
@@ -261,7 +262,7 @@ export default {
     
   },
   created: function(){
-        this.dependenciaView();
+        // this.dependenciaView();
         this.userView();
   },
   props:[
